@@ -65,7 +65,7 @@ namespace FootBallGame
 					agent.transform.parent = Trans_Player;
 					agent.transform.position = Define.PlayerLocationLeft [i];//PlayerLocationLeft;;//PlayerPatrolLocationLeft;;
 					int number = i + 1;
-					agent.SetData (true,number,mBall.transform); 
+					//agent.SetData (true,number,mBall.transform); 
 					mAgentTeamsLeft.Add (agent);
 					BehaviorTree[] trees = agent.GetComponentsInChildren<BehaviorTree> ();
 					for (int j = 0; j < trees.Length; j++) 				
@@ -83,7 +83,7 @@ namespace FootBallGame
 					agent.transform.parent =  Trans_Player;
 					agent.transform.position = Define.PlayerLocationRight [i];//PlayerLocationRight;;//PlayerPatrolLocationRight;;
 					int number = i + 1; 
-					agent.SetData (false,number,mBall.transform); 
+					//agent.SetData (false,number,mBall.transform); 
 					mAgentTeamsRight.Add (agent);
 					BehaviorTree[] trees = agent.GetComponentsInChildren<BehaviorTree> ();
 					for (int j = 0; j < trees.Length; j++) {
@@ -160,16 +160,6 @@ namespace FootBallGame
 				GameOver(false); 
 			}
 
-			/*if((mGameState == GameState.Game)&&Input.GetMouseButtonDown(0)){
-				Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
-				Physics.Raycast(ray,out hit,100);
-				if(null != hit.transform)
-				{
-					print(hit.point);
-					mBall.transform.position = new Vector3(hit.point.x,0,hit.point.z);
-				}
-			}*/
-
  		}
 
 		/// <summary>
@@ -224,11 +214,11 @@ namespace FootBallGame
 			SetState(GameState.Game); 
 
 			for (int i = 0; i < mAgentTeamsLeft.Count; i++) {
-				mAgentTeamsLeft [i].ReStart ();
+				//mAgentTeamsLeft [i].ReStart ();
 			}
 
 			for (int i = 0; i < mAgentTeamsRight.Count; i++) {
-				mAgentTeamsRight [i].ReStart ();
+				//mAgentTeamsRight [i].ReStart ();
 			}
 				
 			Time.timeScale = 1; 
@@ -273,24 +263,7 @@ namespace FootBallGame
 				BeforeKickOffTrees [i].enabled = _enable; 
 			}
 		}
-		public List<Agent> GetAttackAgentList(bool bLeft)
-		{
-			List<Agent> attackTeam = new List<Agent> ();
-			if (bLeft) {
-				for (int i = 0; i < mAgentTeamsLeft.Count; i++) {
-					if (mAgentTeamsLeft [i].GetAgentType () == AgentType.Attack) {
-						attackTeam.Add (mAgentTeamsLeft [i]);
-					}
-				}
- 			} else {
-				for (int i = 0; i < mAgentTeamsRight.Count; i++) {
-					if (mAgentTeamsRight [i].GetAgentType () == AgentType.Attack) {
-						attackTeam.Add (mAgentTeamsRight [i]);
-					}
-				}
-			}
-			return attackTeam;
-		}
+
 		public List<Agent> GetAgentList(bool bLeft)
 		{
  			if (bLeft) { 

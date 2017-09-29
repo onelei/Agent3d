@@ -1,96 +1,84 @@
-﻿using UnityEngine;
+﻿/*
+ * Agent脚本;
+ */
+using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace FootBallGame
-{
-	public enum AgentType
-	{
-		Attack,
-		Defence,
-		GoalKeeper,
-	}
-
+{ 
 	public class Agent : MonoBehaviour
 	{
+        /// <summary>
+        /// NavMesh组件;
+        /// </summary>
 		[SerializeField] NavMeshAgent navMeshagent;
+        /// <summary>
+        /// 球;
+        /// </summary>
 		[SerializeField] Transform Ball;
+        /// <summary>
+        /// 球员编号Text;
+        /// </summary>
 		[SerializeField] TextMesh Text_Num;
-		//[SerializeField] Camera camera;
-
- 		private bool bLeft;
-		private int num;
-		private Vector3 InitPos;
-		private AgentType agentType;
- 
-		public void SetData (bool bLeft, int num, Transform ball)
-		{
-			this.bLeft = bLeft;
-			this.num = num;
-			// set agent type;
-			if (num == Define.GoalKeeperNumber) {
-				this.agentType = AgentType.GoalKeeper;
-			} else if (num <= Define.AttackNumber) {
-				this.agentType = AgentType.Attack;
-			} else {
-				this.agentType = AgentType.Defence;
-			}
-
-			//this.agentType = AgentType.Attack;
-			navMeshagent.speed = 5f;
-			this.InitPos = transform.position;
-			Ball = ball;
-			#if UNITY_EDITOR
-			gameObject.name = bLeft ? "PlayerLeft" + this.num : "PlayerRight" + this.num;
-			#endif
-			Text_Num.text = this.num.ToString ();
-		}
-
+        /// <summary>
+        /// 球员编号;
+        /// </summary>
+		[SerializeField] int num;
+        /// <summary>
+        /// 球员的阵营;True表示是左方,False表示是右方;
+        /// </summary>
+		[SerializeField] bool bLeft;
+        /// <summary>
+        /// 获取阵营;
+        /// </summary>
+        /// <returns></returns>
 		public bool GetTeamDirection ()
 		{
 			return this.bLeft;
 		}
-
+        /// <summary>
+        /// 设置目的地;
+        /// </summary>
+        /// <param name="target"></param>
 		public void SetDestination (Vector3 target)
 		{
 			navMeshagent.enabled = true;
 			navMeshagent.SetDestination (target);
 		}
-
+        /// <summary>
+        /// 获取球的位置;
+        /// </summary>
+        /// <returns></returns>
 		public Vector3 GetBallLocation ()
 		{
 			return Ball.position;
 		}
-
+        /// <summary>
+        /// 获取球的Transform;
+        /// </summary>
+        /// <returns></returns>
 		public GameObject GetBall ()
 		{
 			return Ball.gameObject;
 		}
-
+        /// <summary>
+        /// 获取自身的NavMesh组件;
+        /// </summary>
+        /// <returns></returns>
 		public NavMeshAgent GetNavAgent ()
 		{
 			return this.navMeshagent;
 		}
-
+        /// <summary>
+        /// 获取身上的编号;
+        /// </summary>
+        /// <returns></returns>
 		public int GetNumber ()
 		{
 			return this.num;
 		}
-
-		public AgentType GetAgentType ()
-		{
-			return this.agentType;
-		}
-
-		public bool MoveEnd ()
-		{
-			return navMeshagent.remainingDistance <= 0.1;
-		}
-
-		public void ReStart ()
-		{
-			transform.position = InitPos;
-		}
+          
  
 	}
 }

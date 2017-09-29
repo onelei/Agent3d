@@ -29,9 +29,9 @@ namespace FootBallGame
 				mAgent.transform.LookAt (ballLocation);
 				bool bLeft = mAgent.GetTeamDirection ();
 				if (bLeft) {
-					Ball.AddForce (ballLocation,Define.LeftDoorPosition);
+					Ball.AddForce (ballLocation,Define.RightDoorPosition);
 				} else {
-					Ball.AddForce (ballLocation,Define.RightDoorPosition); 
+					Ball.AddForce (ballLocation,Define.LeftDoorPosition); 
 				}
 				Debug.Log ("bLeft start kick!!!  "+bLeft);
 				return TaskStatus.Success;  

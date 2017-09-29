@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Strategy/GoalKeeper/GoalKeeper.unity
+  isLoaded: 1
+  isActive: 1
